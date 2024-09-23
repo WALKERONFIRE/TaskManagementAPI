@@ -10,7 +10,7 @@ namespace TaskManagement.BLL.Mapper
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<ApplicationUserDTO, ApplicationUser>()
            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
@@ -20,13 +20,21 @@ namespace TaskManagement.BLL.Mapper
 
             CreateMap<ApplicationUser, ApplicationUserDisplayDTO>()
                 .ForMember(dest => dest.Tasks, opt => opt
-                .MapFrom(src => src.Tasks)); 
+                .MapFrom(src => src.Tasks));
             CreateMap<ApplicationUser, EditUserDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Category, CategoryDisplayDTO>()
                 .ForMember(dest => dest.Tasks, opt => opt
                 .MapFrom(src => src.Tasks));
             CreateMap<TaskModel, TaskDTO>().ReverseMap();
+
+            CreateMap<EditTaskDTO, TaskModel>()
+         .ForMember(dest => dest.Category, opt => opt.Ignore())  // Avoid modifying related entities
+         .ForMember(dest => dest.User, opt => opt.Ignore())      // Prevent changes to User
+         .ForAllMembers(options =>
+             options.Condition((source, destination, sourceMember) => sourceMember != null));
+            CreateMap<TaskModel, EditTaskDTO>().ReverseMap();
+
         }
     }
 }

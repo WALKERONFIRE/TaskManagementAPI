@@ -14,7 +14,7 @@ namespace TaskManagement.BLL.Interfaces
         Task<IEnumerable<TaskDTO>> SearchTasksAsync(string keyword, bool? isCompleted = null);
         Task<IEnumerable<TaskDTO>> GetTasksByCategoryIdAsync(string categoryId);
         Task<TaskDTO> AddTaskAsync(TaskDTO taskDto);
-        Task<TaskDTO> UpdateTaskAsync(string id, TaskDTO taskDto);
+        Task<EditTaskDTO> UpdateTaskAsync(string id, EditTaskDTO taskDto);
         Task DeleteTaskAsync(string id);
     }
 }

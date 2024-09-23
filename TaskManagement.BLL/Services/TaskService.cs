@@ -91,7 +91,7 @@ namespace TaskManagement.BLL.Services
             }
         }
 
-        public async Task<TaskDTO> UpdateTaskAsync(string id, TaskDTO taskDto)
+        public async Task<EditTaskDTO> UpdateTaskAsync(string id, EditTaskDTO taskDto)
         {
             try
             {
@@ -99,10 +99,15 @@ namespace TaskManagement.BLL.Services
                 if (task == null)
                     throw new Exception("Task not found");
 
-                _mapper.Map(taskDto, task);
+                task.Title = taskDto.Title ?? task.Title;
+                task.Description = taskDto.Description ?? task.Description;
+                task.CreatedAt = taskDto.CreatedAt ?? task.CreatedAt;
+                task.Deadline = taskDto.Deadline ?? task.Deadline;
+                task.CategoryId = taskDto.CategoryId ?? task.CategoryId;
+                task.UserId = taskDto.UserId ?? task.UserId;
                 _unitOfWork.Tasks.Update(task);
                 _unitOfWork.Complete();
-                return _mapper.Map<TaskDTO>(task);
+                return _mapper.Map<EditTaskDTO>(task);
             }
             catch (Exception ex)
             {

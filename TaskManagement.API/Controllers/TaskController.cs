@@ -61,11 +61,11 @@ namespace TaskManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTask([FromBody] TaskDTO taskDto)
+        public async Task<IActionResult> AddTask([FromBody] TaskDTO dto)
         {
             try
             {
-                var createdTask = await _taskService.AddTaskAsync(taskDto);
+                var createdTask = await _taskService.AddTaskAsync(dto);
                 return CreatedAtAction(nameof(GetTaskById), new { Id = createdTask.Title }, createdTask);
             }
             catch (Exception ex)
@@ -75,14 +75,14 @@ namespace TaskManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTask(string id, [FromBody] TaskDTO taskDto)
+        public async Task<IActionResult> UpdateTask(string id, [FromForm] EditTaskDTO taskDto)
         {
             try
             {
                 var updatedTask = await _taskService.UpdateTaskAsync(id, taskDto);
                 if (updatedTask == null)
                     return NotFound();
-                return Ok(updatedTask);
+                return Ok("Edited Successfully!");
             }
             catch (Exception ex)
             {
