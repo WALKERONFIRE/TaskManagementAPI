@@ -10,6 +10,7 @@ namespace TaskManagement.BLL.Interfaces
     public interface ITaskService
     {
         Task<TaskDTO> GetTaskByIdAsync(string id);
+        Task<int> CountAsync (); 
         Task<IEnumerable<TaskDTO>> GetAllTasksAsync();
         Task<IEnumerable<TaskDTO>> SearchTasksAsync(string keyword, bool? isCompleted = null);
         Task<IEnumerable<TaskDTO>> GetTasksByCategoryIdAsync(string categoryId);

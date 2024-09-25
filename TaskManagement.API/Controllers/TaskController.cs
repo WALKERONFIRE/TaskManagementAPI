@@ -103,5 +103,16 @@ namespace TaskManagement.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("Count")]
+        public async Task<IActionResult> CountAsync()
+        {
+            try
+            {
+                return Ok(await _taskService.CountAsync());
+            } catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

@@ -132,5 +132,9 @@ namespace TaskManagement.BLL.Services
             }
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await _unitOfWork.Tasks.CountAsync();
+        }
     }
 }
